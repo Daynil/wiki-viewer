@@ -14,19 +14,17 @@ gulp.task('serve', ['compile-ts'], function() {
 	});
 	
 	// Watch for changes in html and ts files in base directory, reload if they occur
-	gulp.watch(['*.html', '*.js'], browserSync.reload);
+	gulp.watch(['*.html', '*.css'], browserSync.reload);
 	gulp.watch(['*.ts'], ['ts-watch']);
 	
-	// Watches for changes in css files, grabs the files, pipes them to browsersync stream
-	// This injects the css into the page without a reload
-	gulp.watch('*.css', function() {
-		gulp.src('*.css')
-			.pipe(browserSync.stream());
-	});
 });
 
 // Make sure the compile-ts task completes before reloading browsers
-gulp.task('ts-watch', ['compile-ts'], browserSync.reload);
+gulp.task('ts-watch', ['compile-ts', 'reload']);
+
+gulp.task('reload', ['compile-ts'], function() {
+	browserSync.reload();
+});
 
 gulp.task('compile-ts', function() {
 	var sourceTsFiles = [
@@ -39,7 +37,9 @@ gulp.task('compile-ts', function() {
 		.pipe(sourcemaps.init())
 		.pipe(tsc(tsProject));
 	
-	return tsResult
+	var stream = tsResult
 		.pipe(sourcemaps.write('.'))
 		.pipe(gulp.dest(config.tsOutputPath));
+		
+	return stream;
 });
