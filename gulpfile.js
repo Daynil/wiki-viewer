@@ -10,7 +10,7 @@ var jasmine = require('gulp-jasmine');
 gulp.task('serve', ['compile-ts', 'compile-scss'], function() {
 	browserSync.init({
 		server: {
-			baseDir: './dist'
+			baseDir: ['./dist', './']
 		}
 	});
 	
