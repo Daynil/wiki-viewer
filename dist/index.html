@@ -9,7 +9,10 @@
         <script src="https://code.angularjs.org/tools/system.js"></script>
         <script>
             System.config({
-                defaultJSExtensions: true
+                defaultJSExtensions: true,
+				map: {
+					'rxjs': 'node_modules/rxjs'
+				}
             })
         </script>
         <script src="../node_modules/angular2/bundles/angular2.dev.js"></script>

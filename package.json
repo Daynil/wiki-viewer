@@ -18,6 +18,6 @@
     "jasmine-core": "^2.3.4"
   },
   "dependencies": {
-    "angular2": "^2.0.0-alpha.48"
+    "angular2": "^2.0.0-alpha.53"
   }
 }

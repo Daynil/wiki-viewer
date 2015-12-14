@@ -1,4 +1,6 @@
-import {Component, View, bootstrap} from 'angular2/angular2';
+import { bootstrap } from 'angular2/platform/browser';
+import { Component, View } from 'angular2/core';
+import { CORE_DIRECTIVES } from 'angular2/common';
 
 // Annotation section
 @Component({
@@ -8,11 +10,16 @@ import {Component, View, bootstrap} from 'angular2/angular2';
 	template: '<h1>Hello {{ name }}</h1>'
 })
 // Component controller
-class MyAppComponent {
+class BaseComponent {
 	name: string;
 	constructor() {
 		this.name = 'Alice!';
 	}
 }
 
-bootstrap(MyAppComponent);
+
+bootstrap(BaseComponent)
+	.then(
+		success => console.log("bootstrapping success: ", success),
+		error => console.log("bootstrapping error: ",  error)
+	);
