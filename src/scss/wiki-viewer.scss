@@ -1,0 +1,54 @@
+$color-theme-background: hsl(206, 56%, 30%);
+$color-theme-background-lighter: hsl(186, 76%, 36%);
+$color-theme-background-lightest: hsl(182, 73%, 81%);
+$color-theme-slate: hsl(85, 100%, 94%);
+$color-theme-orange: hsl(32, 100%, 46%);
+
+$font-main: normal 30px 'Open Sans';
+$font-sub:  normal 20px 'Open Sans';
+$font-small: normal 15px 'Open Sans';
+
+
+#page-wrapper {
+	min-height: 100vh;
+	width: 100%;
+	text-align: center;
+	background-color: $color-theme-background;
+	font: $font-main;
+	color: aliceblue;
+	
+	#header {
+		margin-left: 313px;
+	}
+	
+	#search {
+		
+	}
+}
+
+#contact {
+	float: right;
+	width: 313px;
+	padding: 10px;
+	border-radius: 10px;
+	margin: 10px 10px 0 0;
+	height: 65px;
+	font: $font-sub;
+	background-color: $color-theme-background-lighter;
+	text-align: center;
+	
+	i, a {
+		color: $color-theme-background-lightest;
+		transition: 0.2s;
+		text-decoration: none;
+	}
+	
+	a:hover, #gh-link:hover i {
+		color: aliceblue;
+		text-decoration: none;
+	}
+	
+	i {
+		padding-left: 2px;
+	}
+}
