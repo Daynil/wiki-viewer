@@ -8,19 +8,29 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('angular2/core');
+var wiki_service_1 = require('./wiki-service');
 // Annotation section
 var WikiViewerComp = (function () {
-    function WikiViewerComp() {
+    function WikiViewerComp(wikiService) {
+        this.wikiService = wikiService;
     }
+    WikiViewerComp.prototype.generateSuggestions = function (query) {
+        if (!query) {
+            this.wikiService.suggestions = [];
+            return;
+        }
+        this.wikiService.generateSuggestions(query);
+    };
     WikiViewerComp = __decorate([
         core_1.Component({
-            selector: 'wiki-viewer'
+            selector: 'wiki-viewer',
+            viewBindings: [wiki_service_1.WikiService]
         }),
         core_1.View({
             templateUrl: '../html/wiki-viewer.html',
             styleUrls: ['../css/wiki-viewer.css']
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [wiki_service_1.WikiService])
     ], WikiViewerComp);
     return WikiViewerComp;
 })();

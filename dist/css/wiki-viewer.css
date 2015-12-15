@@ -7,6 +7,36 @@
   color: aliceblue; }
   #page-wrapper #header {
     margin-left: 313px; }
+  #page-wrapper #search {
+    position: relative;
+    top: 250px; }
+    #page-wrapper #search #search-bar {
+      border: 1px solid #eb7d00;
+      border-radius: 10px;
+      color: aliceblue;
+      font: normal 20px "Open Sans";
+      height: 30px;
+      padding: 10px;
+      background: #225277;
+      transition: 0.2s; }
+      #page-wrapper #search #search-bar:focus {
+        outline: none;
+        box-shadow: 0 0 5px 1px #eb7d00; }
+    #page-wrapper #search #suggestions-box {
+      font: normal 15px "Open Sans";
+      width: 247px;
+      margin: 0 auto;
+      text-align: left;
+      margin-top: -1px;
+      border: 1px solid #eb7d00;
+      border-radius: 10px;
+      padding: 8px 0 8px 0; }
+    #page-wrapper #search .suggestion {
+      margin: 0 8px 0 8px;
+      padding: 1px 5px 1px 5px; }
+      #page-wrapper #search .suggestion:hover {
+        background-color: rgba(255, 136, 0, 0.7);
+        border-radius: 2px; }
 
 #contact {
   float: right;

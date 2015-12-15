@@ -1,9 +1,10 @@
 import { Component, View } from 'angular2/core';
-import { CORE_DIRECTIVES } from 'angular2/common';
+import { SearchResult, WikiService } from './wiki-service';
 
 // Annotation section
 @Component({
-	selector: 'wiki-viewer'
+	selector: 'wiki-viewer',
+	viewBindings: [WikiService]
 })
 @View({
 	templateUrl: '../html/wiki-viewer.html',
@@ -12,7 +13,15 @@ import { CORE_DIRECTIVES } from 'angular2/common';
 // Component controller
 export class WikiViewerComp {
 
-	constructor() {
+	constructor(public wikiService: WikiService) {
 		
+	}
+	
+	generateSuggestions(query: string) {
+		if (!query) {
+			this.wikiService.suggestions = [];
+			return;
+		}
+		this.wikiService.generateSuggestions(query);
 	}
 }

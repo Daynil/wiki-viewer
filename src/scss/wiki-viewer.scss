@@ -3,6 +3,7 @@ $color-theme-background-lighter: hsl(186, 76%, 36%);
 $color-theme-background-lightest: hsl(182, 73%, 81%);
 $color-theme-slate: hsl(85, 100%, 94%);
 $color-theme-orange: hsl(32, 100%, 46%);
+$color-theme-orange-hover: hsla(32, 100%, 50%, 0.7);
 
 $font-main: normal 30px 'Open Sans';
 $font-sub:  normal 20px 'Open Sans';
@@ -22,7 +23,40 @@ $font-small: normal 15px 'Open Sans';
 	}
 	
 	#search {
-		
+		position: relative;
+		top: 250px;
+		#search-bar {
+			border: 1px solid $color-theme-orange;
+			border-radius: 10px;
+			color: aliceblue;
+			font: $font-sub;
+			height: 30px;
+			padding: 10px;
+			background: $color-theme-background;
+			transition: 0.2s;
+			&:focus {
+				outline: none;
+				box-shadow: 0 0 5px 1px $color-theme-orange;
+			}
+		}
+		#suggestions-box {
+			font: $font-small;
+			width: 247px;
+			margin: 0 auto;
+			text-align: left;
+			margin-top: -1px;
+			border: 1px solid $color-theme-orange;
+			border-radius: 10px;
+			padding: 8px 0 8px 0;
+		}
+		.suggestion {
+			margin: 0 8px 0 8px;
+			padding: 1px 5px 1px 5px;
+			&:hover {
+				background-color: $color-theme-orange-hover;
+				border-radius: 2px;
+			}
+		}
 	}
 }
 
