@@ -55,6 +55,7 @@ $font-small: normal 15px 'Open Sans';
 			&:hover {
 				background-color: $color-theme-orange-hover;
 				border-radius: 2px;
+				cursor: pointer;
 			}
 		}
 	}
