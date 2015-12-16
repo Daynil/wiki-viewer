@@ -13,20 +13,10 @@
 	</div>
 	
 	<div id="search">
-		<input type="text" id="search-bar" (input)="generateSuggestions($event.target.value)">
-		<div id="suggestions-box" *ngIf="wikiService.suggestions.length > 0">
+		<input type="text" id="search-bar" #search placeholder="Search Wikipedia" (input)="generateSuggestions($event.target.value)">
+		<div id="suggestions-box" *ngIf="wikiService.suggestions.length > 0 && search.value != ''">
 			<div class="suggestion"
-				*ngFor="#suggest of wikiService.suggestions">{{ suggest }}</div>
-<!--			<div class="suggestion">Tesla</div>
-			<div class="suggestion">Tesla motors</div>
-			<div class="suggestion">Tesla coil</div>
-			<div class="suggestion">Tesla, Nikola</div>
-			<div class="suggestion">Tesla (unit)</div>
-			<div class="suggestion">Tesla roadster</div>
-			<div class="suggestion">Tesla (band)</div>
-			<div class="suggestion">Tesla Model S</div>
-			<div class="suggestion">Tesla Factory</div>
-			<div class="suggestion">Tesla fault</div>-->
+				*ngFor="#suggestion of wikiService.suggestions">{{ suggestion }}</div>
 		</div>
 	</div>
 	

@@ -2,27 +2,35 @@
     <head>
         <Title>Wikipedia Viewer</Title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<!-- Fonts -->
+		
+		<!-- Load Fonts and Icons -->
 		<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-		<!-- Libraries -->
-        <script src="https://code.angularjs.org/tools/traceur-runtime.js"></script>
-        <script src="https://code.angularjs.org/tools/system.js"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+		
+		<!-- Load Libraries -->
+		<script src="../node_modules/angular2/bundles/angular2-polyfills.js"></script>
+        <script src="../node_modules/systemjs/dist/system.src.js"></script>
+		<script src="../node_modules/rxjs/bundles/Rx.js"></script>
+        <script src="../node_modules/angular2/bundles/angular2.dev.js"></script>
+		<script src="../node_modules/angular2/bundles/http.dev.js"></script>
+		
+		<!-- Configure SystemJS -->
         <script>
             System.config({
-                defaultJSExtensions: true,
-				map: {
-					'rxjs': 'node_modules/rxjs'
+                packages: {
+					js: {
+						format: 'cjs',
+						defaultExtension: 'js'
+					}
 				}
             })
         </script>
-        <script src="../node_modules/angular2/bundles/angular2.dev.js"></script>
-		<script src="../node_modules/angular2/bundles/http.dev.js"></script>
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+		
     </head>
 
     <body style="margin: 0; padding: 0;">
+		<script>System.import('js/bootstrap')</script>
         <wiki-viewer><wiki-viewer>
-		<script>System.import('./js/bootstrap')</script>
     </body>
         
 </html>

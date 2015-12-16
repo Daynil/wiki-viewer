@@ -21,16 +21,37 @@ var WikiService = (function () {
         this.jsonp = jsonp;
         this.baseUrl = 'https://en.wikipedia.org/w/api.php?action=opensearch&limit=10&format=json&callback=JSONP_CALLBACK&search=';
         this.suggestions = [];
+        this.pendingQuery = false;
+        this.queryQueue = [];
     }
     WikiService.prototype.wikiSearch = function (query) {
+        this.pendingQuery = true;
         return this.jsonp.request("" + this.baseUrl + query).map(function (res) { return res.json(); });
     };
     WikiService.prototype.generateSuggestions = function (query) {
         var _this = this;
+        // Only add to the queue if it is empty, and only execute a query if there isn't already a pending one.
+        if (this.pendingQuery && this.queryQueue.length > 0) {
+            this.queryQueue.pop();
+            this.queryQueue.push(query);
+            console.log("Pending query, and we have an old item in queue, clear it and add new one: " + this.queryQueue + ".");
+            return;
+        }
+        else if (this.pendingQuery && this.queryQueue.length == 0) {
+            this.queryQueue.push(query);
+            console.log("Pending query, empty queue, add new query to queue: " + this.queryQueue);
+            return;
+        }
         this.wikiSearch(query)
             .subscribe(function (results) {
+            _this.pendingQuery = false;
             var resSuggests = results[1];
             _this.suggestions = resSuggests.slice(); // We prefer a copy to a reference
+            if (_this.queryQueue.length != 0) {
+                var chainQuery = _this.queryQueue.pop();
+                _this.generateSuggestions(chainQuery);
+                console.log("We've finished a query and have an item in queue, execute follow up query with: " + chainQuery + ".");
+            }
         }, function (error) { return console.log(error); });
     };
     WikiService = __decorate([
