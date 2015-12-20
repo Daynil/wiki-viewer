@@ -13,6 +13,11 @@ var wiki_service_1 = require('./wiki-service');
 var WikiViewerComp = (function () {
     function WikiViewerComp(wikiService) {
         this.wikiService = wikiService;
+        this.showingResults = false;
+        this.searchClasses = {
+            'search-results': this.showingResults,
+            'search-noresults': !this.showingResults
+        };
     }
     WikiViewerComp.prototype.generateSuggestions = function (query) {
         if (!query) {
@@ -28,7 +33,16 @@ var WikiViewerComp = (function () {
     WikiViewerComp.prototype.showResults = function (query) {
         if (!query)
             return;
+        this.invertSearchPosition();
         this.wikiService.showResults();
+    };
+    WikiViewerComp.prototype.invertSearchPosition = function () {
+        this.showingResults = !this.showingResults;
+    };
+    WikiViewerComp.prototype.searchPosition = function () {
+        this.searchClasses['search-results'] = this.showingResults;
+        this.searchClasses['search-noresults'] = !this.showingResults;
+        return this.searchClasses;
     };
     WikiViewerComp = __decorate([
         core_1.Component({

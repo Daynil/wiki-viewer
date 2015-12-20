@@ -9,7 +9,6 @@ $font-main: normal 30px 'Open Sans';
 $font-sub:  normal 20px 'Open Sans';
 $font-small: normal 15px 'Open Sans';
 
-
 #page-wrapper {
 	min-height: 100vh;
 	width: 100%;
@@ -24,7 +23,6 @@ $font-small: normal 15px 'Open Sans';
 	
 	#search {
 		position: relative;
-		top: 250px;
 		#search-bar {
 			display: block;
 			margin: 0 auto;
@@ -74,6 +72,16 @@ $font-small: normal 15px 'Open Sans';
 			}
 		}
 	}
+}
+
+.search-noresults {
+	top: 250px;
+	transition: 0.5s;
+}
+
+.search-results {
+	top: 125px;
+	transition: 0.5s;
 }
 
 #contact {

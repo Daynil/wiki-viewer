@@ -8,8 +8,7 @@
   #page-wrapper #header {
     margin-left: 313px; }
   #page-wrapper #search {
-    position: relative;
-    top: 250px; }
+    position: relative; }
     #page-wrapper #search #search-bar {
       display: block;
       margin: 0 auto;
@@ -51,6 +50,14 @@
         background-color: rgba(255, 136, 0, 0.7);
         border-radius: 2px;
         cursor: pointer; }
+
+.search-noresults {
+  top: 250px;
+  transition: 0.5s; }
+
+.search-results {
+  top: 125px;
+  transition: 0.5s; }
 
 #contact {
   float: right;

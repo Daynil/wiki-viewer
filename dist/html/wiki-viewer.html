@@ -12,7 +12,7 @@
 		<h1>Wikipedia Viewer</h1>
 	</div>
 	
-	<div id="search">
+	<div id="search" [ngClass]="searchPosition()">
 		<input type="text" id="search-bar" #search placeholder="Search Wikipedia" (input)="generateSuggestions($event.target.value)">
 		<i class="fa fa-search" id="search-button" (click)="showResults(search.value)"></i>
 		<div id="suggestions-box" *ngIf="wikiService.suggestions.length > 0 && search.value != ''">

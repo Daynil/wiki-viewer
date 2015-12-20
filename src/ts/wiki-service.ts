@@ -18,6 +18,8 @@ export class WikiService {
 	queryQueue: string[] = [];
 	resultBuffer: any;
 	
+
+	
 	constructor(public jsonp: Jsonp) {
 		
 	}
@@ -60,4 +62,5 @@ export class WikiService {
 	showResults() {
 		console.log(this.resultBuffer);
 	}
+
 }

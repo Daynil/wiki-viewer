@@ -12,9 +12,15 @@ import { SearchResult, WikiService } from './wiki-service';
 })
 // Component controller
 export class WikiViewerComp {
+	
+	showingResults = false;
+	searchClasses  = {
+		'search-results': this.showingResults,
+		'search-noresults': !this.showingResults
+	}
 
 	constructor(public wikiService: WikiService) {
-		
+
 	}
 	
 	generateSuggestions(query: string) {
@@ -32,6 +38,17 @@ export class WikiViewerComp {
 	
 	showResults(query: string) {
 		if (!query) return;
+		this.invertSearchPosition();
 		this.wikiService.showResults();
+	}
+	
+	invertSearchPosition() {
+		this.showingResults = !this.showingResults;
+	}
+	
+	searchPosition() {
+		this.searchClasses['search-results'] = this.showingResults;
+		this.searchClasses['search-noresults'] = !this.showingResults;
+		return this.searchClasses;
 	}
 }
