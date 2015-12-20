@@ -8,7 +8,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var http_1 = require('angular2/http');
+var Subject_1 = require('rxjs/Subject');
 require('rxjs/add/operator/map');
+require('rxjs/add/operator/debounce');
 var core_1 = require('angular2/core');
 var SearchResult = (function () {
     function SearchResult() {
@@ -23,6 +25,7 @@ var WikiService = (function () {
         this.suggestions = [];
         this.pendingQuery = false;
         this.queryQueue = [];
+        this.queryStream = new Subject_1.Subject();
     }
     WikiService.prototype.wikiSearch = function (query) {
         this.pendingQuery = true;
@@ -30,6 +33,21 @@ var WikiService = (function () {
     };
     WikiService.prototype.generateSuggestions = function (query) {
         var _this = this;
+        // Need to figure out how to import onNext and flatMap doesn't work either
+        this.queryStream.onNext(query)
+            .debounce(500)
+            .map(function (query) { return _this.wikiSearch(query)
+            .subscribe(function (results) {
+            _this.pendingQuery = false;
+            var resSuggests = results[1];
+            _this.suggestions = resSuggests.slice(); // We prefer a copy to a reference
+            if (_this.queryQueue.length != 0) {
+                var chainQuery = _this.queryQueue.pop();
+                _this.generateSuggestions(chainQuery);
+                console.log("We've finished a query and have an item in queue, execute follow up query with: " + chainQuery + ".");
+            }
+        }, function (error) { return console.log(error); }); });
+        return;
         // Only add to the queue if it is empty, and only execute a query if there isn't already a pending one.
         if (this.pendingQuery && this.queryQueue.length > 0) {
             this.queryQueue.pop();
