@@ -1,8 +1,5 @@
 import { Jsonp, Response } from 'angular2/http';
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject'
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/debounce';
+import * as Rx from 'rxjs/Rx';
 import { Injectable } from 'angular2/core';
 
 export class SearchResult {
@@ -16,65 +13,27 @@ export class WikiService {
 	baseUrl = 'https://en.wikipedia.org/w/api.php?action=opensearch&limit=10&format=json&callback=JSONP_CALLBACK&search=';
 	
 	suggestions: string[] = [];
-	pendingQuery = false;
 	queryQueue: string[] = [];
-	queryStream = new Subject();
+	queryStream = new (<any>Rx).Subject();
 
 	constructor(public jsonp: Jsonp) {
-		
+		this.queryStream
+			.debounceTime(250)
+			.switchMap( query => this.wikiSearch(query) )
+			.subscribe(
+				results  => {
+					let resSuggests: string[] = results[1];
+					this.suggestions = resSuggests.slice();  // We prefer a copy to a reference
+				},
+				error => console.log (error)
+			);
 	}
 	
-	wikiSearch(query: string): Observable<any> {
-		this.pendingQuery = true;
-		return this.jsonp.request( `${this.baseUrl}${query}` ).map( (res: Response) => res.json() );
+	wikiSearch(query: string): Rx.Observable<any> {
+		return this.jsonp.request( `${this.baseUrl}${query}` ).map( (res: Response) => <any>res.json() );
 	}
 	
 	generateSuggestions(query: string) {
-		// Need to figure out how to import onNext and flatMap doesn't work either
-		this.queryStream.onNext(query)
-			.debounce(500)
-			.map(
-				query => this.wikiSearch(query)
-				.subscribe(
-					results => {
-						this.pendingQuery = false;
-						let resSuggests: string[] = results[1];
-						this.suggestions = resSuggests.slice();  // We prefer a copy to a reference
-						if (this.queryQueue.length != 0) {
-							let chainQuery = this.queryQueue.pop();
-							this.generateSuggestions(chainQuery);
-							console.log(`We've finished a query and have an item in queue, execute follow up query with: ${chainQuery}.`);
-						}
-					},
-					error => console.log(error)
-				)
-			);
-		return;
-		// Only add to the queue if it is empty, and only execute a query if there isn't already a pending one.
-		if (this.pendingQuery && this.queryQueue.length > 0) {
-			this.queryQueue.pop();
-			this.queryQueue.push(query);
-			console.log(`Pending query, and we have an old item in queue, clear it and add new one: ${this.queryQueue}.`);
-			return; 
-		}
-		else if (this.pendingQuery && this.queryQueue.length == 0) {
-			this.queryQueue.push(query);
-			console.log(`Pending query, empty queue, add new query to queue: ${this.queryQueue}`);
-			return;
-		}
-		this.wikiSearch(query)
-			.subscribe(
-				results => {
-					this.pendingQuery = false;
-					let resSuggests: string[] = results[1];
-					this.suggestions = resSuggests.slice();  // We prefer a copy to a reference
-					if (this.queryQueue.length != 0) {
-						let chainQuery = this.queryQueue.pop();
-						this.generateSuggestions(chainQuery);
-						console.log(`We've finished a query and have an item in queue, execute follow up query with: ${chainQuery}.`);
-					}
-				},
-				error => console.log(error)
-			);
+		this.queryStream.next(query);
 	}
 }
