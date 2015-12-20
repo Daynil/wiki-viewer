@@ -16,6 +16,7 @@ export class WikiService {
 	suggestions: string[] = [];
 	pendingQuery = false;
 	queryQueue: string[] = [];
+	resultBuffer: any;
 	
 	constructor(public jsonp: Jsonp) {
 		
@@ -43,6 +44,7 @@ export class WikiService {
 			.subscribe(
 				results => {
 					this.pendingQuery = false;
+					this.resultBuffer = results;   // Save the result in case we decide to view results on this query
 					let resSuggests: string[] = results[1];
 					this.suggestions = resSuggests.slice();  // We prefer a copy to a reference
 					if (this.queryQueue.length != 0) {
@@ -53,5 +55,9 @@ export class WikiService {
 				},
 				error => console.log(error)
 			);
+	}
+	
+	showResults() {
+		console.log(this.resultBuffer);
 	}
 }

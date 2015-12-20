@@ -14,9 +14,11 @@
 	
 	<div id="search">
 		<input type="text" id="search-bar" #search placeholder="Search Wikipedia" (input)="generateSuggestions($event.target.value)">
+		<i class="fa fa-search" id="search-button" (click)="showResults(search.value)"></i>
 		<div id="suggestions-box" *ngIf="wikiService.suggestions.length > 0 && search.value != ''">
 			<div class="suggestion"
-				*ngFor="#suggestion of wikiService.suggestions">{{ suggestion }}</div>
+				*ngFor="#suggestion of wikiService.suggestions"
+				(click)="updateSearch(search, suggestion)">{{ suggestion }}</div>
 		</div>
 	</div>
 	

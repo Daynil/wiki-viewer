@@ -45,6 +45,7 @@ var WikiService = (function () {
         this.wikiSearch(query)
             .subscribe(function (results) {
             _this.pendingQuery = false;
+            _this.resultBuffer = results; // Save the result in case we decide to view results on this query
             var resSuggests = results[1];
             _this.suggestions = resSuggests.slice(); // We prefer a copy to a reference
             if (_this.queryQueue.length != 0) {
@@ -53,6 +54,9 @@ var WikiService = (function () {
                 console.log("We've finished a query and have an item in queue, execute follow up query with: " + chainQuery + ".");
             }
         }, function (error) { return console.log(error); });
+    };
+    WikiService.prototype.showResults = function () {
+        console.log(this.resultBuffer);
     };
     WikiService = __decorate([
         core_1.Injectable(), 

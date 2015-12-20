@@ -21,6 +21,15 @@ var WikiViewerComp = (function () {
         }
         this.wikiService.generateSuggestions(query);
     };
+    WikiViewerComp.prototype.updateSearch = function (searchBar, suggestion) {
+        searchBar.value = suggestion;
+        this.generateSuggestions(suggestion);
+    };
+    WikiViewerComp.prototype.showResults = function (query) {
+        if (!query)
+            return;
+        this.wikiService.showResults();
+    };
     WikiViewerComp = __decorate([
         core_1.Component({
             selector: 'wiki-viewer',

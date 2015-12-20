@@ -24,4 +24,14 @@ export class WikiViewerComp {
 		}
 		this.wikiService.generateSuggestions(query);
 	}
+	
+	updateSearch(searchBar, suggestion: string) {
+		searchBar.value = suggestion;
+		this.generateSuggestions(suggestion);
+	}
+	
+	showResults(query: string) {
+		if (!query) return;
+		this.wikiService.showResults();
+	}
 }

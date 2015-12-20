@@ -26,6 +26,8 @@ $font-small: normal 15px 'Open Sans';
 		position: relative;
 		top: 250px;
 		#search-bar {
+			display: block;
+			margin: 0 auto;
 			border: 1px solid $color-theme-orange;
 			border-radius: 10px;
 			color: aliceblue;
@@ -39,7 +41,20 @@ $font-small: normal 15px 'Open Sans';
 				box-shadow: 0 0 5px 1px $color-theme-orange;
 			}
 		}
+		#search-button {
+			position: relative;
+			right: -109px;
+			bottom: 26px;
+			font-size: 19px;
+			color: hsla(32, 100%, 46%, 0.7);
+			background-color: $color-theme-background;
+			&:hover {
+				cursor: pointer;
+			}
+		}
 		#suggestions-box {
+			position: relative;
+			bottom: 19px;
 			font: $font-small;
 			width: 247px;
 			margin: 0 auto;

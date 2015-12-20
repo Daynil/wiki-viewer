@@ -11,6 +11,8 @@
     position: relative;
     top: 250px; }
     #page-wrapper #search #search-bar {
+      display: block;
+      margin: 0 auto;
       border: 1px solid #eb7d00;
       border-radius: 10px;
       color: aliceblue;
@@ -22,7 +24,18 @@
       #page-wrapper #search #search-bar:focus {
         outline: none;
         box-shadow: 0 0 5px 1px #eb7d00; }
+    #page-wrapper #search #search-button {
+      position: relative;
+      right: -109px;
+      bottom: 26px;
+      font-size: 19px;
+      color: rgba(235, 125, 0, 0.7);
+      background-color: #225277; }
+      #page-wrapper #search #search-button:hover {
+        cursor: pointer; }
     #page-wrapper #search #suggestions-box {
+      position: relative;
+      bottom: 19px;
       font: normal 15px "Open Sans";
       width: 247px;
       margin: 0 auto;
@@ -36,7 +49,8 @@
       padding: 1px 5px 1px 5px; }
       #page-wrapper #search .suggestion:hover {
         background-color: rgba(255, 136, 0, 0.7);
-        border-radius: 2px; }
+        border-radius: 2px;
+        cursor: pointer; }
 
 #contact {
   float: right;
