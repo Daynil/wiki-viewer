@@ -22,25 +22,52 @@ var WikiService = (function () {
         this.jsonp = jsonp;
         this.baseUrl = 'https://en.wikipedia.org/w/api.php?action=opensearch&limit=10&format=json&callback=JSONP_CALLBACK&search=';
         this.suggestions = [];
-        this.queryQueue = [];
         this.queryStream = new Rx.Subject();
-        this.queryStream
+        this.resultStream = new Rx.Observable();
+        this.pendingQuery = false;
+        this.results = [];
+        this.resultStream = this.queryStream
             .debounceTime(250)
-            .switchMap(function (query) { return _this.wikiSearch(query); })
-            .subscribe(function (results) {
+            .switchMap(function (query) { return _this.wikiSearch(query); });
+        this.resultStream.subscribe(function (results) {
+            _this.pendingQuery = false;
             _this.resultBuffer = results; // Save the result in case we decide to view results on this query
             var resSuggests = results[1];
             _this.suggestions = resSuggests.slice(); // We prefer a copy to a reference
         }, function (error) { return console.log(error); });
     }
-    WikiService.prototype.showResults = function () {
-        console.log(this.resultBuffer);
-    };
     WikiService.prototype.wikiSearch = function (query) {
+        this.pendingQuery = true;
         return this.jsonp.request("" + this.baseUrl + query).map(function (res) { return res.json(); });
     };
     WikiService.prototype.generateSuggestions = function (query) {
         this.queryStream.next(query);
+    };
+    WikiService.prototype.showResults = function () {
+        if (!this.pendingQuery && this.resultBuffer) {
+            console.log('no pending query');
+            this.parseResults();
+        }
+    };
+    WikiService.prototype.parseResults = function () {
+        this.suggestions = [];
+        this.results = [];
+        var resultNames = this.resultBuffer[1];
+        var resultDescriptions = this.resultBuffer[2];
+        var resultUrls = this.resultBuffer[3];
+        for (var i = 0; i < resultNames.length; i++) {
+            var result = new SearchResult();
+            result.name = resultNames[i];
+            result.description = resultDescriptions[i];
+            result.url = resultUrls[i];
+            this.results.push(result);
+        }
+        this.resultBuffer = null;
+    };
+    WikiService.prototype.clearResults = function () {
+        this.suggestions = [];
+        this.results = [];
+        this.resultBuffer = null;
     };
     WikiService = __decorate([
         core_1.Injectable(), 

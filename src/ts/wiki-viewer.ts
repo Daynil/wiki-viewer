@@ -37,13 +37,15 @@ export class WikiViewerComp {
 	}
 	
 	showResults(query: string) {
-		if (!query) return;
-		this.invertSearchPosition();
+		if (!query || this.wikiService.pendingQuery || !this.wikiService.resultBuffer) return;
+		this.showingResults = true;
 		this.wikiService.showResults();
 	}
 	
-	invertSearchPosition() {
-		this.showingResults = !this.showingResults;
+	clearResults(searchBar) {
+		searchBar.value = '';
+		this.showingResults = false;
+		this.wikiService.clearResults();
 	}
 	
 	searchPosition() {

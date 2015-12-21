@@ -1,4 +1,4 @@
-<div id="page-wrapper">
+<div id="page-wrapper" [class.wrapper-pad]="showingResults">
 	
 	<div id="contact">
 		Created with ♥ by <a href="https://github.com/Daynil/">Daynil</a> for <a href="http://www.freecodecamp.com/">FCC</a>
@@ -13,12 +13,25 @@
 	</div>
 	
 	<div id="search" [ngClass]="searchPosition()">
-		<input type="text" id="search-bar" #search placeholder="Search Wikipedia" (input)="generateSuggestions($event.target.value)">
+		<input type="text" id="search-bar" #search placeholder="Search Wikipedia" 
+		(input)="generateSuggestions($event.target.value)" (keyup.enter)="showResults(search.value)">
 		<i class="fa fa-search" id="search-button" (click)="showResults(search.value)"></i>
-		<div id="suggestions-box" *ngIf="wikiService.suggestions.length > 0 && search.value != ''">
-			<div class="suggestion"
-				*ngFor="#suggestion of wikiService.suggestions"
-				(click)="updateSearch(search, suggestion)">{{ suggestion }}</div>
+		<i class="fa fa-times" id="clear-button" (click)="clearResults(search)"></i>
+		<div id="suggestions-container">
+			<div id="suggestions-box" *ngIf="wikiService.suggestions.length > 0 && search.value != ''">
+				<div class="suggestion"
+					*ngFor="#suggestion of wikiService.suggestions"
+					(click)="updateSearch(search, suggestion)">{{ suggestion }}</div>
+			</div>
+		</div>
+	</div>
+	
+	<div id="results" *ngIf="showingResults" class="results-animation">
+		<div class="result" *ngFor="#result of wikiService.results">
+			<a [href]="result.url">
+				<h3>{{ result.name }}</h3>
+				<p>{{ result.description }}</p>
+			</a>
 		</div>
 	</div>
 	

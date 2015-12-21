@@ -1,6 +1,7 @@
 $color-theme-background: hsl(206, 56%, 30%);
 $color-theme-background-lighter: hsl(186, 76%, 36%);
 $color-theme-background-lightest: hsl(182, 73%, 81%);
+$color-theme-background-result: hsl(32, 5%, 91%);
 $color-theme-slate: hsl(85, 100%, 94%);
 $color-theme-orange: hsl(32, 100%, 46%);
 $color-theme-orange-hover: hsla(32, 100%, 50%, 0.7);
@@ -16,13 +17,15 @@ $font-small: normal 15px 'Open Sans';
 	background-color: $color-theme-background;
 	font: $font-main;
 	color: aliceblue;
+	overflow: hidden;
 	
 	#header {
-		margin-left: 313px;
+		margin-left: 22%;
 	}
 	
 	#search {
 		position: relative;
+		z-index: 2;
 		#search-bar {
 			display: block;
 			margin: 0 auto;
@@ -41,18 +44,40 @@ $font-small: normal 15px 'Open Sans';
 		}
 		#search-button {
 			position: relative;
-			right: -109px;
-			bottom: 26px;
+			right: -121px;
+			bottom: 42px;
 			font-size: 19px;
 			color: hsla(32, 100%, 46%, 0.7);
 			background-color: $color-theme-background;
+			transition: 0.2s;
 			&:hover {
+				color: $color-theme-orange;
 				cursor: pointer;
 			}
 		}
-		#suggestions-box {
+		#clear-button {
 			position: relative;
-			bottom: 19px;
+			left: 135px;
+			bottom: 37px;
+			color: hsla(32, 100%, 46%, 0.7);
+			transition: 0.2s;
+			&:hover {
+				color: $color-theme-orange;
+				cursor: pointer;
+			}
+		}
+		#suggestions-container {
+			position: relative;
+			right: 124px;
+			bottom: -17px;
+			margin: 0 auto;
+			width: 0;
+			height: 0;
+		}
+		#suggestions-box {
+			position: absolute;
+			background-color: $color-theme-background;
+			top: -58px;
 			font: $font-small;
 			width: 247px;
 			margin: 0 auto;
@@ -72,6 +97,35 @@ $font-small: normal 15px 'Open Sans';
 			}
 		}
 	}
+	
+	#results {
+		position: relative;
+		top: 20px;
+		z-index: 1;
+		.result {
+			text-align: left;
+			border-radius: 3px;
+			background-color: $color-theme-background-result;
+			width: 80%;
+			font-size: 20px;
+			margin: 0 auto;
+			transition: 0.2s;
+			a {
+				color: black;
+				text-decoration: none;
+			}
+			h3 {
+				padding: 25px 25px 0 25px
+			}
+			p {
+				padding: 0 25px 25px 25px;
+			}
+			&:hover {
+				background-color: white;
+				box-shadow: 0 0 6px 2px $color-theme-orange;
+			}
+		}
+	}
 }
 
 .search-noresults {
@@ -80,9 +134,28 @@ $font-small: normal 15px 'Open Sans';
 }
 
 .search-results {
-	top: 125px;
+	top: 30px;
 	transition: 0.5s;
 }
+
+.wrapper-pad {
+	padding-bottom: 30px;
+}
+
+.results-animation {
+	animation-duration: 1s;
+	animation-name: slideup;
+}
+
+@keyframes slideup {
+	from {
+		margin-top: 300px;
+	}
+	to {
+		margin-top: 0px;
+	}
+}
+
 
 #contact {
 	float: right;

@@ -4,11 +4,13 @@
   text-align: center;
   background-color: #225277;
   font: normal 30px "Open Sans";
-  color: aliceblue; }
+  color: aliceblue;
+  overflow: hidden; }
   #page-wrapper #header {
-    margin-left: 313px; }
+    margin-left: 22%; }
   #page-wrapper #search {
-    position: relative; }
+    position: relative;
+    z-index: 2; }
     #page-wrapper #search #search-bar {
       display: block;
       margin: 0 auto;
@@ -25,16 +27,35 @@
         box-shadow: 0 0 5px 1px #eb7d00; }
     #page-wrapper #search #search-button {
       position: relative;
-      right: -109px;
-      bottom: 26px;
+      right: -121px;
+      bottom: 42px;
       font-size: 19px;
       color: rgba(235, 125, 0, 0.7);
-      background-color: #225277; }
+      background-color: #225277;
+      transition: 0.2s; }
       #page-wrapper #search #search-button:hover {
+        color: #eb7d00;
         cursor: pointer; }
-    #page-wrapper #search #suggestions-box {
+    #page-wrapper #search #clear-button {
       position: relative;
-      bottom: 19px;
+      left: 135px;
+      bottom: 37px;
+      color: rgba(235, 125, 0, 0.7);
+      transition: 0.2s; }
+      #page-wrapper #search #clear-button:hover {
+        color: #eb7d00;
+        cursor: pointer; }
+    #page-wrapper #search #suggestions-container {
+      position: relative;
+      right: 124px;
+      bottom: -17px;
+      margin: 0 auto;
+      width: 0;
+      height: 0; }
+    #page-wrapper #search #suggestions-box {
+      position: absolute;
+      background-color: #225277;
+      top: -58px;
       font: normal 15px "Open Sans";
       width: 247px;
       margin: 0 auto;
@@ -50,14 +71,49 @@
         background-color: rgba(255, 136, 0, 0.7);
         border-radius: 2px;
         cursor: pointer; }
+  #page-wrapper #results {
+    position: relative;
+    top: 20px;
+    z-index: 1; }
+    #page-wrapper #results .result {
+      text-align: left;
+      border-radius: 3px;
+      background-color: #e9e8e7;
+      width: 80%;
+      font-size: 20px;
+      margin: 0 auto;
+      transition: 0.2s; }
+      #page-wrapper #results .result a {
+        color: black;
+        text-decoration: none; }
+      #page-wrapper #results .result h3 {
+        padding: 25px 25px 0 25px; }
+      #page-wrapper #results .result p {
+        padding: 0 25px 25px 25px; }
+      #page-wrapper #results .result:hover {
+        background-color: white;
+        box-shadow: 0 0 6px 2px #eb7d00; }
 
 .search-noresults {
   top: 250px;
   transition: 0.5s; }
 
 .search-results {
-  top: 125px;
+  top: 30px;
   transition: 0.5s; }
+
+.wrapper-pad {
+  padding-bottom: 30px; }
+
+.results-animation {
+  animation-duration: 1s;
+  animation-name: slideup; }
+
+@keyframes slideup {
+  from {
+    margin-top: 300px; }
+  to {
+    margin-top: 0px; } }
 
 #contact {
   float: right;
