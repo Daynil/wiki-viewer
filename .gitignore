@@ -1,5 +1,10 @@
-# Don't add devdependencies
-node_modules
+# Don't add dev-dependencies
+node_modules/browser-sync
+node_modules/gulp
+node_modules/gulp-jasmine
+node_modules/gulp-sass
+node_modules/gulp-sourcemaps
+node_modules/gulp-typescript
 
 # Don't add compiled files
 *.js
