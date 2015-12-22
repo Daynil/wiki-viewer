@@ -105,6 +105,9 @@
 .wrapper-pad {
   padding-bottom: 30px; }
 
+.loading {
+  cursor: wait; }
+
 .results-animation {
   animation-duration: 1s;
   animation-name: slideup; }

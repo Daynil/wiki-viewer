@@ -31,19 +31,21 @@ var WikiViewerComp = (function () {
         this.generateSuggestions(suggestion);
     };
     WikiViewerComp.prototype.showResults = function (query) {
-        if (!query || this.wikiService.pendingQuery || !this.wikiService.resultBuffer)
+        if (!query)
             return;
-        this.showingResults = true;
-        this.wikiService.showResults();
+        this.wikiService.showResults(query);
+    };
+    WikiViewerComp.prototype.inputDefocus = function () {
+        if (this.wikiService.suggestions)
+            this.wikiService.suggestions = [];
     };
     WikiViewerComp.prototype.clearResults = function (searchBar) {
         searchBar.value = '';
-        this.showingResults = false;
         this.wikiService.clearResults();
     };
     WikiViewerComp.prototype.searchPosition = function () {
-        this.searchClasses['search-results'] = this.showingResults;
-        this.searchClasses['search-noresults'] = !this.showingResults;
+        this.searchClasses['search-results'] = this.wikiService.showingResults;
+        this.searchClasses['search-noresults'] = !this.wikiService.showingResults;
         return this.searchClasses;
     };
     WikiViewerComp = __decorate([

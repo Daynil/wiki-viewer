@@ -1,4 +1,4 @@
-<div id="page-wrapper" [class.wrapper-pad]="showingResults">
+<div id="page-wrapper" [class.wrapper-pad]="showingResults" [class.loading]="wikiService.pendingQuery">
 	
 	<div id="contact">
 		Created with ♥ by <a href="https://github.com/Daynil/">Daynil</a> for <a href="http://www.freecodecamp.com/">FCC</a>
@@ -14,7 +14,8 @@
 	
 	<div id="search" [ngClass]="searchPosition()">
 		<input type="text" id="search-bar" #search placeholder="Search Wikipedia" 
-		(input)="generateSuggestions($event.target.value)" (keyup.enter)="showResults(search.value)">
+			(input)="generateSuggestions($event.target.value)" (keyup.enter)="showResults(search.value)"
+			(blur)="inputDefocus()">
 		<i class="fa fa-search" id="search-button" (click)="showResults(search.value)"></i>
 		<i class="fa fa-times" id="clear-button" (click)="clearResults(search)"></i>
 		<div id="suggestions-container">
@@ -26,7 +27,7 @@
 		</div>
 	</div>
 	
-	<div id="results" *ngIf="showingResults" class="results-animation">
+	<div id="results" *ngIf="wikiService.showingResults" class="results-animation">
 		<div class="result" *ngFor="#result of wikiService.results">
 			<a [href]="result.url">
 				<h3>{{ result.name }}</h3>

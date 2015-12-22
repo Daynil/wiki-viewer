@@ -24,32 +24,38 @@ var WikiService = (function () {
         this.suggestions = [];
         this.queryStream = new Rx.Subject();
         this.resultStream = new Rx.Observable();
-        this.pendingQuery = false;
         this.results = [];
+        this.showingResults = false;
+        this.pendingQuery = false;
         this.resultStream = this.queryStream
             .debounceTime(250)
             .switchMap(function (query) { return _this.wikiSearch(query); });
         this.resultStream.subscribe(function (results) {
-            _this.pendingQuery = false;
             _this.resultBuffer = results; // Save the result in case we decide to view results on this query
             var resSuggests = results[1];
             _this.suggestions = resSuggests.slice(); // We prefer a copy to a reference
         }, function (error) { return console.log(error); });
     }
     WikiService.prototype.wikiSearch = function (query) {
-        this.pendingQuery = true;
         return this.jsonp.request("" + this.baseUrl + query).map(function (res) { return res.json(); });
     };
     WikiService.prototype.generateSuggestions = function (query) {
         this.queryStream.next(query);
     };
-    WikiService.prototype.showResults = function () {
-        if (!this.pendingQuery && this.resultBuffer) {
-            console.log('no pending query');
-            this.parseResults();
+    WikiService.prototype.showResults = function (query) {
+        var _this = this;
+        if (!this.resultBuffer || this.resultBuffer[0] != query) {
+            this.pendingQuery = true;
+            this.wikiSearch(query).subscribe(function (result) {
+                _this.resultBuffer = result;
+                _this.parseResults();
+            });
         }
+        else
+            this.parseResults();
     };
     WikiService.prototype.parseResults = function () {
+        this.pendingQuery = false;
         this.suggestions = [];
         this.results = [];
         var resultNames = this.resultBuffer[1];
@@ -63,11 +69,13 @@ var WikiService = (function () {
             this.results.push(result);
         }
         this.resultBuffer = null;
+        this.showingResults = true;
     };
     WikiService.prototype.clearResults = function () {
         this.suggestions = [];
         this.results = [];
         this.resultBuffer = null;
+        this.showingResults = false;
     };
     WikiService = __decorate([
         core_1.Injectable(), 

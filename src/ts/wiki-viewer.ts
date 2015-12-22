@@ -1,5 +1,6 @@
 import { Component, View } from 'angular2/core';
 import { SearchResult, WikiService } from './wiki-service';
+import * as Rx from 'rxjs/Rx';
 
 // Annotation section
 @Component({
@@ -37,20 +38,22 @@ export class WikiViewerComp {
 	}
 	
 	showResults(query: string) {
-		if (!query || this.wikiService.pendingQuery || !this.wikiService.resultBuffer) return;
-		this.showingResults = true;
-		this.wikiService.showResults();
+		if (!query) return;
+		this.wikiService.showResults(query);
+	}
+	
+	inputDefocus() {
+		if (this.wikiService.suggestions) this.wikiService.suggestions = [];
 	}
 	
 	clearResults(searchBar) {
 		searchBar.value = '';
-		this.showingResults = false;
 		this.wikiService.clearResults();
 	}
 	
 	searchPosition() {
-		this.searchClasses['search-results'] = this.showingResults;
-		this.searchClasses['search-noresults'] = !this.showingResults;
+		this.searchClasses['search-results'] = this.wikiService.showingResults;
+		this.searchClasses['search-noresults'] = !this.wikiService.showingResults;
 		return this.searchClasses;
 	}
 }

@@ -15,9 +15,10 @@ export class WikiService {
 	suggestions: string[] = [];
 	queryStream = new (<any>Rx).Subject();
 	resultStream = new (<any>Rx).Observable();
-	pendingQuery = false;
 	resultBuffer: any;
 	results: SearchResult[] = [];
+	showingResults = false;
+	pendingQuery = false;
 
 	constructor(public jsonp: Jsonp) {
 		this.resultStream = this.queryStream
@@ -25,7 +26,6 @@ export class WikiService {
 								.switchMap( query => this.wikiSearch(query) );
 		this.resultStream.subscribe(
 				results  => {
-					this.pendingQuery = false;
 					this.resultBuffer = results; // Save the result in case we decide to view results on this query
 					let resSuggests: string[] = results[1];
 					this.suggestions = resSuggests.slice();  // We prefer a copy to a reference
@@ -35,7 +35,6 @@ export class WikiService {
 	}
 	
 	wikiSearch(query: string): Rx.Observable<any> {
-		this.pendingQuery = true;
 		return this.jsonp.request( `${this.baseUrl}${query}` ).map( (res: Response) => <any>res.json() );
 	}
 	
@@ -43,14 +42,18 @@ export class WikiService {
 		this.queryStream.next(query);
 	}
 	
-	showResults() {
-		if (!this.pendingQuery && this.resultBuffer) {
-			console.log('no pending query');
-			this.parseResults();
-		}
+	showResults(query: string) {
+		if ( !this.resultBuffer || this.resultBuffer[0] != query ) {
+			this.pendingQuery = true;
+			this.wikiSearch(query).subscribe( result => {
+				this.resultBuffer = result;
+				this.parseResults();
+			});	
+		} else this.parseResults();
 	}
 	
 	parseResults() {
+		this.pendingQuery = false;
 		this.suggestions = [];
 		this.results = [];
 		let resultNames = this.resultBuffer[1];
@@ -65,12 +68,14 @@ export class WikiService {
 			this.results.push(result);		
 		}
 		this.resultBuffer = null;
+		this.showingResults = true;
 	}
 	
 	clearResults() {
 		this.suggestions = [];
 		this.results = [];
 		this.resultBuffer = null;
+		this.showingResults = false;
 	}
 
 
