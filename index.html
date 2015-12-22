@@ -17,7 +17,12 @@
 		<!-- Configure SystemJS -->
         <script>
             System.config({
-				defaultJSExtensions: true
+				packages: {
+					'./': {
+						format: 'cjs',
+						defaultExtension: 'js'
+					}
+				}
             })
         </script>
 		
