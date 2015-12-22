@@ -6,7 +6,5 @@ node_modules/gulp-sass
 node_modules/gulp-sourcemaps
 node_modules/gulp-typescript
 
-# Don't add compiled files
-*.js
-*.css
+# Don't add maps
 *.*.map
