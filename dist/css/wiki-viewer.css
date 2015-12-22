@@ -1,0 +1,141 @@
+#page-wrapper {
+  min-height: 100vh;
+  width: 100%;
+  text-align: center;
+  background-color: #225277;
+  font: normal 30px "Open Sans";
+  color: aliceblue;
+  overflow: hidden; }
+  #page-wrapper #header {
+    margin-left: 22%; }
+  #page-wrapper #search {
+    position: relative;
+    z-index: 2; }
+    #page-wrapper #search #search-bar {
+      display: block;
+      margin: 0 auto;
+      border: 1px solid #eb7d00;
+      border-radius: 10px;
+      color: aliceblue;
+      font: normal 20px "Open Sans";
+      height: 30px;
+      padding: 10px;
+      background: #225277;
+      transition: 0.2s; }
+      #page-wrapper #search #search-bar:focus {
+        outline: none;
+        box-shadow: 0 0 5px 1px #eb7d00; }
+    #page-wrapper #search #search-button {
+      position: relative;
+      right: -121px;
+      bottom: 42px;
+      font-size: 19px;
+      color: rgba(235, 125, 0, 0.7);
+      background-color: #225277;
+      transition: 0.2s; }
+      #page-wrapper #search #search-button:hover {
+        color: #eb7d00;
+        cursor: pointer; }
+    #page-wrapper #search #clear-button {
+      position: relative;
+      left: 135px;
+      bottom: 37px;
+      color: rgba(235, 125, 0, 0.7);
+      transition: 0.2s; }
+      #page-wrapper #search #clear-button:hover {
+        color: #eb7d00;
+        cursor: pointer; }
+    #page-wrapper #search #suggestions-container {
+      position: relative;
+      right: 124px;
+      bottom: -17px;
+      margin: 0 auto;
+      width: 0;
+      height: 0; }
+    #page-wrapper #search #suggestions-box {
+      position: absolute;
+      background-color: #225277;
+      top: -58px;
+      font: normal 15px "Open Sans";
+      width: 247px;
+      margin: 0 auto;
+      text-align: left;
+      margin-top: -1px;
+      border: 1px solid #eb7d00;
+      border-radius: 10px;
+      padding: 8px 0 8px 0; }
+    #page-wrapper #search .suggestion {
+      margin: 0 8px 0 8px;
+      padding: 1px 5px 1px 5px; }
+      #page-wrapper #search .suggestion:hover {
+        background-color: rgba(255, 136, 0, 0.7);
+        border-radius: 2px;
+        cursor: pointer; }
+  #page-wrapper #results {
+    position: relative;
+    top: 20px;
+    z-index: 1; }
+    #page-wrapper #results .result {
+      text-align: left;
+      border-radius: 3px;
+      background-color: #e9e8e7;
+      width: 80%;
+      font-size: 20px;
+      margin: 0 auto;
+      transition: 0.2s; }
+      #page-wrapper #results .result a {
+        color: black;
+        text-decoration: none; }
+      #page-wrapper #results .result h3 {
+        padding: 25px 25px 0 25px; }
+      #page-wrapper #results .result p {
+        padding: 0 25px 25px 25px; }
+      #page-wrapper #results .result:hover {
+        background-color: white;
+        box-shadow: 0 0 6px 2px #eb7d00; }
+
+.search-noresults {
+  top: 250px;
+  transition: 0.5s; }
+
+.search-results {
+  top: 30px;
+  transition: 0.5s; }
+
+.wrapper-pad {
+  padding-bottom: 30px; }
+
+.loading {
+  cursor: wait; }
+
+.results-animation {
+  animation-duration: 1s;
+  animation-name: slideup; }
+
+@keyframes slideup {
+  from {
+    margin-top: 300px; }
+  to {
+    margin-top: 0px; } }
+
+#contact {
+  float: right;
+  width: 313px;
+  padding: 10px;
+  border-radius: 10px;
+  margin: 10px 10px 0 0;
+  height: 65px;
+  font: normal 20px "Open Sans";
+  background-color: #1694a2;
+  text-align: center; }
+  #contact i, #contact a {
+    color: #abf0f2;
+    transition: 0.2s;
+    text-decoration: none; }
+  #contact a:hover, #contact #gh-link:hover i {
+    color: aliceblue;
+    text-decoration: none; }
+  #contact i {
+    padding-left: 2px; }
+
+/*# sourceMappingURL=wiki-viewer.css.map */

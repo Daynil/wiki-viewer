@@ -17,11 +17,10 @@
 		<!-- Configure SystemJS -->
         <script>
             System.config({
-				packages: {
-					'./': {
-						format: 'cjs',
-						defaultExtension: 'js'
-					}
+				defaultJSExtensions: true,
+				map: {
+					'angular2': 'node_modules/angular2',
+					'rxjs': 'node_modules/rxjs'
 				}
             })
         </script>

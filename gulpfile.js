@@ -10,12 +10,12 @@ var jasmine = require('gulp-jasmine');
 gulp.task('serve', ['compile-ts', 'compile-scss'], function() {
 	browserSync.init({
 		server: {
-			baseDir: ['./dist', './']
+			baseDir: ['./']
 		}
 	});
 	
 	// Watch for changes in html and ts files in base directory, reload if they occur
-	gulp.watch(['./dist/html/*.html', './dist/index.html'], browserSync.reload);
+	gulp.watch(['./*.html', './index.html'], browserSync.reload);
 	gulp.watch(['./src/ts/*.ts', './src/scss/*.scss'], ['src-watch']);
 	
 });
