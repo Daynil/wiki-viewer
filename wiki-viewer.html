@@ -14,8 +14,7 @@
 	
 	<div id="search" [ngClass]="searchPosition()">
 		<input type="text" id="search-bar" #search placeholder="Search Wikipedia" 
-			(input)="generateSuggestions($event.target.value)" (keyup.enter)="showResults(search.value)"
-			(blur)="inputDefocus()">
+			(input)="generateSuggestions($event.target.value)" (keyup.enter)="showResults(search.value)">
 		<i class="fa fa-search" id="search-button" (click)="showResults(search.value)"></i>
 		<i class="fa fa-times" id="clear-button" (click)="clearResults(search)"></i>
 		<div id="suggestions-container">
