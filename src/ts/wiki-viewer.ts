@@ -34,7 +34,7 @@ export class WikiViewerComp {
 	
 	updateSearch(searchBar, suggestion: string) {
 		searchBar.value = suggestion;
-		this.generateSuggestions(suggestion);
+		this.showResults(suggestion);
 	}
 	
 	showResults(query: string) {

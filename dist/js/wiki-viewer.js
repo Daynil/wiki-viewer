@@ -28,7 +28,7 @@ var WikiViewerComp = (function () {
     };
     WikiViewerComp.prototype.updateSearch = function (searchBar, suggestion) {
         searchBar.value = suggestion;
-        this.generateSuggestions(suggestion);
+        this.showResults(suggestion);
     };
     WikiViewerComp.prototype.showResults = function (query) {
         if (!query)
