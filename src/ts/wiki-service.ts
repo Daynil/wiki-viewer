@@ -60,6 +60,17 @@ export class WikiService {
 		let resultDescriptions = this.resultBuffer[2];
 		let resultUrls = this.resultBuffer[3];
 		
+		if (resultNames.length < 1) {
+			let resultNull = new SearchResult();
+			resultNull.name = 'No Results Found!';
+			resultNull.description = 'Please try another search term.'
+			resultNull.url = '#';
+			this.results.push(resultNull);
+			this.resultBuffer = null;
+			this.showingResults = true;
+			return;
+		}
+		
 		for (let i=0; i < resultNames.length; i++) {
 			let result = new SearchResult();
 			result.name = resultNames[i];

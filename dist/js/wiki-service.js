@@ -61,6 +61,16 @@ var WikiService = (function () {
         var resultNames = this.resultBuffer[1];
         var resultDescriptions = this.resultBuffer[2];
         var resultUrls = this.resultBuffer[3];
+        if (resultNames.length < 1) {
+            var resultNull = new SearchResult();
+            resultNull.name = 'No Results Found!';
+            resultNull.description = 'Please try another search term.';
+            resultNull.url = '#';
+            this.results.push(resultNull);
+            this.resultBuffer = null;
+            this.showingResults = true;
+            return;
+        }
         for (var i = 0; i < resultNames.length; i++) {
             var result = new SearchResult();
             result.name = resultNames[i];
